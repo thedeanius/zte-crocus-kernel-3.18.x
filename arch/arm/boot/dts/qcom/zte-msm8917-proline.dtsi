@@ -1,0 +1,238 @@
+/*
+ * device tree for zte proline board
+ */
+
+#include "dsi-panel-zte-lead-ili9881c-auo-5p5-720p-video.dtsi"
+#include "dsi-panel-zte-dijing-nt35521-cmi-5p5-720p-video.dtsi"
+#include "dsi-panel-zte-lead-ili9881c-cpt-5p5-720p-video.dtsi"
+#include "dsi-panel-zte-tianma-s6d7aa6-tm-5p5-720p-video.dtsi"
+#include "dsi-panel-zte-dijing-nt35521sh-auo-5p5-720p-video.dtsi"
+#include "dsi-panel-zte-helitech-ili9881c-cpt-5p5-720p-video.dtsi"
+#include "touch-key-backlight-proline.dtsi"
+#include "msm8917-camera-sensor-proline.dtsi"
+
+&int_codec {
+	qcom,msm-hs-micbias-type = "internal";
+};
+
+&soc {
+	tlmm: pinctrl@1000000 {
+		zte_hall: zte_hall {
+			zte_hall_gpio_active: zte_hall_gpio_active {
+				mux {
+					pins = "gpio59";
+					function = "gpio";
+				};
+				config {
+					pins = "gpio59";
+					drive-strength = <2>; /* 2 mA */
+					bias-disable = <0>; /* no pull */
+					input-enable; /* input */
+				};
+			};
+		};
+	};
+};
+
+&soc {
+	tlmm: pinctrl@1000000 {
+		/*sensors */
+		cam_sensor_mclk0_default_proline: cam_sensor_mclk0_default_proline {
+			/* MCLK0 */
+			mux {
+				/* CLK, DATA */
+				pins = "gpio26";
+				function = "cam_mclk";
+			};
+			config {
+				pins = "gpio26";
+				bias-disable; /* No PULL */
+				drive-strength = <4>; /* 4 MA */
+			};
+		};
+		cam_sensor_mclk0_sleep_proline: cam_sensor_mclk0_sleep_proline {
+		/* MCLK0 */
+			mux {
+			/* CLK, DATA */
+				pins = "gpio26";
+				function = "cam_mclk";
+			};
+			config {
+				pins = "gpio26";
+				bias-pull-down; /* PULL DOWN */
+				drive-strength = <4>; /* 4 MA */
+			};
+		};
+		cam_sensor_rear_default_proline: cam_sensor_rear_default_proline {
+		/* RESET, STANDBY */
+			mux {
+				pins = "gpio36", "gpio35", "gpio129", "gpio68", "gpio62";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio36", "gpio35", "gpio129", "gpio68", "gpio62";
+				bias-disable; /* No PULL */
+				drive-strength = <2>; /* 2 MA */
+			};
+		};
+		cam_sensor_rear_sleep_proline: cam_sensor_rear_sleep_proline {
+		/* RESET, STANDBY */
+			mux {
+				pins = "gpio36", "gpio35", "gpio129", "gpio68", "gpio62";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio36", "gpio35", "gpio129", "gpio68", "gpio62";
+				bias-disable; /* No PULL */
+				drive-strength = <2>; /* 2 MA */
+			};
+		};
+		cam_sensor_mclk2_default_proline: cam_sensor_mclk2_default_proline {
+		/* MCLK2 */
+			mux {
+			/* CLK, DATA */
+				pins = "gpio28";
+				function = "cam_mclk";
+			};
+			config {
+				pins = "gpio28";
+				bias-disable; /* No PULL */
+				drive-strength = <4>; /* 4 MA */
+			};
+		};
+		cam_sensor_mclk2_sleep_proline: cam_sensor_mclk2_sleep_proline {
+		/* MCLK2 */
+			mux {
+			/* CLK, DATA */
+				pins = "gpio28";
+				function = "cam_mclk";
+			};
+			config {
+				pins = "gpio28";
+				bias-pull-down; /* PULL DOWN */
+				drive-strength = <4>; /* 4 MA */
+			};
+		};
+		cam_sensor_front1_default_proline: cam_sensor_front1_default_proline {
+		/* RESET, STANDBY */
+			mux {
+				pins = "gpio96","gpio68","gpio40","gpio39";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio96","gpio68","gpio40","gpio39";
+				bias-disable; /* No PULL */
+				drive-strength = <2>; /* 2 MA */
+			};
+		};
+		cam_sensor_front1_sleep_proline: cam_sensor_front1_sleep_proline {
+		/* RESET, STANDBY */
+			mux {
+				pins = "gpio96","gpio68","gpio40","gpio39";
+				function = "gpio";
+			};
+			config {
+				pins = "gpio96","gpio68","gpio40","gpio39";
+				bias-disable; /* No PULL */
+				drive-strength = <2>; /* 2 MA */
+			};
+		};
+	};
+};
+
+&soc {
+	zte-hall {
+		compatible = "zte-hall";
+		pinctrl-names = "zte_hall_gpio_active";
+		pinctrl-0 = <&zte_hall_gpio_active>;
+		hall_en{
+			label = "hall_en";
+			gpios = <&tlmm 59 0x0>;
+		};
+	};
+
+	gpio-leds {
+		compatible = "gpio-leds";
+		keypad-backlight {
+			gpios = <&tlmm 90 0>;
+			label = "button-backlight";
+			linux,default-trigger = "none";
+		};
+	};
+};
+
+&pmi_haptic {
+	status = "okay";
+	qcom,actuator-type = "erm";
+	qcom,vmax-mv = <3132>;
+};
+
+&mtp_batterydata {
+	#include "zte_p817a22_3250mah.dtsi"
+	#include "zte_P817a22cos_3320mAh.dtsi"
+};
+
+/* ZTE, USB phy init seq override, wangzy*/
+&soc {
+	usb_otg: usb@78db000 {
+		qcom,hsusb-otg-phy-init-seq =
+			<0x33 0x80 0x38 0x81 0x37 0x82 0x13 0x83 0xffffffff>;
+	};
+};
+
+&spmi_bus {
+	qcom,pmi8940@2 {
+		qcom,leds@a000 {
+			status = "okay";
+			qcom,led_mpp_1 {	/* red led */
+				label = "mpp";
+				linux,name = "red";		/* orgin is wled-backlight */
+				linux,default-trigger = "battery-charging";	/* org="bkl-trigger"; */
+				qcom,default-state = "off";
+				qcom,max-current = <40>;
+				qcom,current-setting = <5>;	/*+ zte add +*/
+				qcom,id = <6>;				/* in leds-qpnp.c enum QPNP_ID_LED_MPP(6) */
+				#qcom,source-sel = <10>;	/* select power source, default 1 (enabled)(org=8) */
+				qcom,source-sel = <11>; /* connect MPP to inverted DTEST2 for PMI8940 */
+				qcom,src-sel = <10>;
+				qcom,mode-ctrl = <0x10>;	/* operation mode, default 0x60 = Mode Sink (org=0x10)*/
+				qcom,pwm-channel = <0>;
+				qcom,pwm-us = <1000>;
+				qcom,vin-ctrl = <0x00>;		/* select input source, 0 to 3 */
+				qcom,duty-pcts = <50>;
+				qcom,mode = "pwm";
+				qcom,use-blink;
+				pwms = <&pmi8940_pwm 0 0>;
+				qcom,pwm-names = "red-led";
+				zte,is-operator-sprint = "no";
+			};
+		};
+
+		qcom,leds@a100 {
+			status = "okay";
+			qcom,led_mpp_2 {	/* green led */
+				label = "mpp";
+				linux,name = "green";
+				linux,default-trigger = "battery-full";
+				qcom,default-state = "off";
+				qcom,max-current = <40>;
+				qcom,current-setting = <5>;
+				qcom,id = <6>;
+				#qcom,source-sel = <8>;
+				qcom,source-sel = <10>; /* connect MPP to DTEST2*/
+				qcom,src-sel = <10>;
+
+				qcom,mode-ctrl = <0x60>;
+				qcom,pwm-channel = <0>;
+				qcom,pwm-us = <1000>;
+				qcom,vin-ctrl = <0x00>;
+				qcom,duty-pcts = <50>;
+				qcom,mode = "pwm";
+				qcom,use-blink;
+				pwms = <&pmi8940_pwm 0 0>;
+				qcom,pwm-names = "green-led";
+				zte,is-operator-sprint = "no";
+			};
+		};
+	};
+};

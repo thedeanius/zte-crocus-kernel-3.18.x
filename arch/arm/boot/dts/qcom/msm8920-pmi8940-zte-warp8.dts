@@ -1,0 +1,76 @@
+/*
+ * Copyright (c) 2016, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/dts-v1/;
+
+#include "msm8920.dtsi"
+#include "msm8920-pmi8940-qrd-sku7.dtsi"
+#include "zte-msm8920-warp8.dtsi"
+
+#include "dsi-panel-zte-dijing-nt35521-auo-5p5-720p-video.dtsi"
+#include "dsi-panel-zte-helitech-ili9881c-cpt-5p5-720p-video.dtsi"
+#include "msm8920-camera-sensor-zte-warp8.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. MSM8920-PMI8940 WARP8";
+	compatible = "qcom,msm8920-qrd-sku7", "qcom,msm8920-qrd",
+		   "qcom,msm8920", "qcom,qrd";
+	qcom,board-id = <115 0>;
+	qcom,pmic-id = <0x10019 0x020040 0x0 0x0>;
+};
+
+&soc {
+	zte_misc {
+		compatible = "zte-misc";
+	};
+};
+
+&pmi8940_charger {
+	qcom,float-voltage-mv = <4400>;
+	qcom,fastchg-current-ma = <2500>;
+	qcom,force-aicl-rerun;
+	qcom,only-5v-adapter;
+	qcom,hvdcp-usb-in-current-ma = <1200>;
+	qcom,thermal-mitigation = <1500 900 500 0>;
+};
+
+&pmi8940_fg{
+	qcom,warm-bat-decidegc = <450>;
+	qcom,cool-bat-decidegc = <100>;
+	qcom,hot-bat-decidegc  = <500>;
+	qcom,cold-bat-decidegc = <20>;
+	qcom,vbat-estimate-diff-mv = <150>;
+};
+
+&pmi8940_flash0{
+	label = "flash";
+	qcom,led-name = "led:flash_0";
+	qcom,default-led-trigger =
+			"flash0_trigger";
+	qcom,max-current = <1000>;
+	qcom,duration = <1280>;
+	qcom,id = <0>;
+	qcom,current = <1000>;
+};
+
+&dsi_dijing_nt35521_auo_5p5_720p_video {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+	//qcom,mdss-dsi-pan-enable-dynamic-fps;
+	//qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
+};
+
+&dsi_helitech_ili9881c_cpt_5p5_720p_video {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+	//qcom,mdss-dsi-pan-enable-dynamic-fps;
+	//qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
+};

@@ -1,0 +1,56 @@
+/*
+ * Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/dts-v1/;
+
+#include "msm8953.dtsi"
+#include "msm8953-mtp.dtsi"
+#include "zte-msm8953-florist.dtsi"
+#include "msm8953-camera-sensor-mtp-dual-camera.dtsi"
+
+#include "dsi-panel-truly-1080p-video.dtsi"
+#include "dsi-panel-zte-lead_otm1906a_auo_6p0_1080p_cmd-8953n.dtsi"
+#include "dsi-panel-zte-tm-nt35695-tm-6p0-1080p-video-8953n.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. MSM8953 FLORIST";
+	compatible = "qcom,msm8953-mtp", "qcom,msm8953", "qcom,mtp";
+	qcom,board-id= <104 0>;
+};
+
+&dsi_lead_otm1906a_auo_6p0_1080P_video_vid {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+	qcom,ulps-enabled;
+};
+
+&dsi_TM_NT35695_TM_6p0_1080P_video_vid {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply>;
+	qcom,ulps-enabled;
+};
+
+&pmi8950_charger {
+	qcom,float-voltage-mv = <4400>;
+	qcom,fastchg-current-ma = <3000>;
+	qcom,hvdcp-usb-in-current-ma = <1500>;
+	qcom,thermal-mitigation = <1500 1000 500 0>;
+};
+
+&pmi8950_fg{
+	qcom,cool-bat-decidegc = <100>;
+	qcom,vbat-estimate-diff-mv = <150>;
+};
+
+&mtp_batterydata {
+	#include "zte_p853a13_3990mah.dtsi"
+	#include "zte_p853a13_gy_3990mah.dtsi"
+};

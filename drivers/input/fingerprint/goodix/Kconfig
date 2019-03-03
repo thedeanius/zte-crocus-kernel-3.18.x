@@ -1,0 +1,3 @@
+config FINGERPRINT_GOODIX_GF3228
+	tristate "Goodix GF3228 fingerprint drvier support"
+	default n

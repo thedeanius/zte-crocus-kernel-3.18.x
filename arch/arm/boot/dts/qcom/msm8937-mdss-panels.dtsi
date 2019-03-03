@@ -1,0 +1,63 @@
+/* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+#include "dsi-panel-sim-video.dtsi"
+#include "dsi-panel-sim-cmd.dtsi"
+#include "dsi-panel-truly-1080p-video.dtsi"
+#include "dsi-panel-truly-1080p-cmd.dtsi"
+#include "dsi-panel-r69006-1080p-cmd.dtsi"
+#include "dsi-panel-r69006-1080p-video.dtsi"
+#include "dsi-panel-hx8394f-720p-video.dtsi"
+#include "dsi-adv7533-1080p.dtsi"
+#include "dsi-adv7533-720p.dtsi"
+#include "dsi-panel-truly-720p-video.dtsi"
+#include "dsi-panel-truly-wuxga-video.dtsi"
+#include "dsi-panel-truly-720p-cmd.dtsi"
+#include "dsi-panel-lead-fl10802-fwvga-video.dtsi"
+
+#include "dsi-panel-zte-lead-ili9881c-auo-5p5-720p-video.dtsi"
+#include "dsi-panel-zte-dijing-nt35521-cmi-5p5-720p-video.dtsi"
+#include "dsi-panel-zte-lead-ili9881c-cpt-5p5-720p-video.dtsi"
+#include "dsi-panel-zte-tianma-s6d7aa6-tm-5p5-720p-video.dtsi"
+
+#include "dsi-panel-zte-tm-nt35695-tm-6p0-1080p-video.dtsi"
+#include "dsi-panel-zte-lead_otm1906a_auo_6p0_1080p_cmd.dtsi"
+#include "dsi-panel-zte-lead_otm1906a_auo_6p0_1080p_cmd_n9560.dtsi"
+#include "dsi-panel-zte-lead_otm1911_auo_6p0_1080p_video.dtsi"
+#include "dsi-panel-zte-dijing-nt35695-auo-6p0-1080p-video.dtsi"
+#include "dsi-panel-zte-tm-ili7807d-tm-6p0-1080p-video.dtsi"
+
+&soc {
+	dsi_panel_pwr_supply: dsi_panel_pwr_supply {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		qcom,panel-supply-entry@0 {
+			reg = <0>;
+			qcom,supply-name = "vdd";
+			qcom,supply-min-voltage = <2850000>;
+			qcom,supply-max-voltage = <2850000>;
+			qcom,supply-enable-load = <100000>;
+			qcom,supply-disable-load = <100>;
+		};
+
+		qcom,panel-supply-entry@1 {
+			reg = <1>;
+			qcom,supply-name = "vddio";
+			qcom,supply-min-voltage = <1800000>;
+			qcom,supply-max-voltage = <1800000>;
+			qcom,supply-enable-load = <100000>;
+			qcom,supply-disable-load = <100>;
+		};
+
+	};
+};

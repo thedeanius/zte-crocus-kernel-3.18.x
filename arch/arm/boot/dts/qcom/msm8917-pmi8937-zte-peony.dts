@@ -1,0 +1,72 @@
+/*
+ * Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/dts-v1/;
+
+#include "msm8917.dtsi"
+#include "msm8917-pmi8937-mtp.dtsi"
+#include "msm8917-mtp.dtsi"
+#include "zte-msm8917-peony.dtsi"
+
+
+/ {
+	model = "Qualcomm Technologies, Inc. MSM8917-PMI8937 PEONY";
+	compatible = "qcom,msm8917-mtp", "qcom,msm8917", "qcom,mtp";
+	qcom,board-id= <107 0>;
+	qcom,pmic-id = <0x10019 0x020037 0x0 0x0>;
+};
+
+&pmi8937_charger {
+	qcom,float-voltage-mv = <4400>;
+	qcom,fastchg-current-ma = <3200>;
+	qcom,force-aicl-rerun;
+	qcom,only-5v-adapter;
+};
+
+&pmi8937_fg{
+	qcom,warm-bat-decidegc = <450>;
+	qcom,cool-bat-decidegc = <100>;
+	qcom,hot-bat-decidegc  = <500>;
+	qcom,cold-bat-decidegc = <20>;
+	qcom,vbat-estimate-diff-mv = <150>;
+};
+
+&spmi_bus {
+
+
+	qcom,pmi8937@2 {
+		qcom,leds@a100 {
+			status = "okay";
+			compatible = "qcom,leds-qpnp";
+			reg = <0xa100 0x100>;
+			label = "mpp";
+			qcom,led_mpp_2 {    /* green led */
+				label = "mpp";
+				linux,name = "home-led";
+				linux,default-trigger = "none";
+				qcom,default-state = "off";
+				qcom,max-current = <40>;
+				qcom,current-setting = <5>;
+				qcom,id = <6>;
+				qcom,mode = "pwm";
+				qcom,source-sel = <8>;
+				qcom,mode-ctrl = <0x60>;
+				qcom,pwm-us = <1000>;
+				qcom,duty-pcts = <50>;
+				qcom,use-blink;
+				pwms = <&pmi8937_pwm 0 0>;
+				pwm-names="home-led";
+			};
+		};
+	};
+};

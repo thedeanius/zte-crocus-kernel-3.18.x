@@ -1,0 +1,66 @@
+/*
+ * Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/dts-v1/;
+
+#include "msm8953.dtsi"
+#include "msm8953-mtp.dtsi"
+#include "zte-msm8953-primrose.dtsi"
+#include "dsi-panel-zte-kingdisplay-nt51021-auo-10p1-1200p-video.dtsi"
+#include "dsi-panel-zte-boe-nt51021-auo-10p1-1200p-video.dtsi"
+#include "dsi-panel-zte-dijing-hx8279d-cpt-10p1-1200p-video.dtsi"
+#include "msm8953-camera-sensor-zte-primrose.dtsi"
+
+/ {
+	model = "Qualcomm Technologies, Inc. MSM8953 PRIMROSE";
+	compatible = "qcom,msm8953-mtp", "qcom,msm8953", "qcom,mtp";
+	qcom,board-id= <111 0>;
+};
+
+&dsi_kingdisplay_nt51021_auo_10p1_1200P_video_vid {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply_no_labibb>;
+	//qcom,ulps-enabled;
+};
+
+&dsi_boe_nt51021_auo_10p1_1200P_video_vid {
+	qcom,panel-supply-entries = <&dsi_panel_pwr_supply_no_labibb>;
+	//qcom,ulps-enabled;
+};
+
+&mdss_dsi0 {
+	qcom,dsi-pref-prim-pan = <&dsi_kingdisplay_nt51021_auo_10p1_1200P_video_vid>;
+	zte,lcd-3v-vsp-enable-gpio = <&tlmm 129 0>;
+};
+
+&pmi8950_charger {
+	qcom,float-voltage-mv = <4400>;
+	qcom,fastchg-current-ma = <2800>;
+	qcom,hvdcp-usb-in-current-ma = <1500>;
+	qcom,thermal-mitigation = <1500 1000 500 0>;
+	qcom,iterm-ma = <300>;
+};
+
+&pmi8950_fg {
+	qcom,cool-bat-decidegc = <100>;
+	qcom,vbat-estimate-diff-mv = <150>;
+	qcom,fg-iterm-ma = <350>;
+	qcom,fg-chg-iterm-ma = <300>;
+};
+
+&pmi_haptic {
+	qcom,vmax-mv = <3016>;
+};
+
+&mtp_batterydata {
+	#include "zte_p853a92_9070mAh.dtsi"
+};

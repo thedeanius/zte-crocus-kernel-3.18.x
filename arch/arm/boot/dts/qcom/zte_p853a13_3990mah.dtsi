@@ -1,0 +1,50 @@
+
+qcom,zte_p853a13_3990mah {
+	/* #2425083_ZTE_P853A01_3990mAh_averaged_MasterSlave_Apr18th2016*/
+	qcom,max-voltage-uv = <4400000>;
+	qcom,nom-batt-capacity-mah = <3990>;
+	qcom,batt-id-kohm = <180>;
+	qcom,battery-beta = <3435>;
+	/*qcom,battery-type = "ZTE_P853A01_3990mAh_averaged_batterydata";*/
+	qcom,battery-type = "ZTE_BATTERY_DATA_ID_1";  /*ZTE all batterys used the same type name */
+	qcom,chg-rslow-comp-c1 = <3388236>;
+	qcom,chg-rslow-comp-c2 = <5145015>;
+	qcom,chg-rs-to-rslow = <710590>;
+	qcom,chg-rslow-comp-thr = <0xAC>;
+	qcom,checksum = <0x196D>;
+	qcom,gui-version = "PMI8950GUI - 2.0.0.15";
+	qcom,fg-profile-data = [
+		 E7 83 26 7D
+		 50 81 9A 77
+		 4E 83 E7 59
+		 A1 80 31 8C
+		 01 82 49 99
+		 EF B6 20 C2
+		 5E 18 03 88
+		 C7 7D BB 81
+		 2E 7C 62 83
+		 7A 66 35 88
+		 8B 8F 1D 82
+		 78 99 C1 B7
+		 5E C3 58 11
+		 F8 0F 04 60
+		 14 70 71 FD
+		 CA 44 1A 44
+		 15 49 00 00
+		 38 47 68 3B
+		 1D 3E 00 00
+		 00 00 00 00
+		 00 00 00 00
+		 09 6B 57 69
+		 00 72 79 89
+		 30 7D BF 71
+		 10 60 70 80
+		 EE 77 16 6B
+		 F8 61 C5 A9
+		 29 2F 5B 1D
+		 5D A0 71 0C
+		 28 00 FF 36
+		 F0 11 30 03
+		 00 00 00 0C
+	];
+};
